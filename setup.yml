@@ -1,0 +1,5 @@
+- name: Install Redmine
+  hosts: server
+  user: root
+  roles:
+    - Packages

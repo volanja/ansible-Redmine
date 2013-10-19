@@ -1,0 +1,71 @@
+---
+- name: Template epel.repo
+  template: src=epel.repo dest=/etc/yum.repos.d/epel.repo mode=0644
+
+- name: Template remi.repo
+  template: src=remi.repo dest=/etc/yum.repos.d/remi.repo mode=0644
+
+- name: Template mariadb.repo
+  template: src=mariadb.repo dest=/etc/yum.repos.d/mariadb.repo mode=0644
+
+- name: Template nginx.repo
+  template: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo mode=0644
+
+- name: Install(Group) development
+  yum: pkg='@development' state=latest
+
+- name: Install Vim
+  yum: pkg={{ item }} state=present
+  with_items:
+    - vim
+
+- name: Install Git
+  yum: pkg={{ item }} state=present
+  with_items:
+    - git-all
+
+- name: Install Ruby Dependency
+  yum: pkg={{ item }} state=present enablerepo=epel 
+  with_items:
+    - openssl-devel
+    - zlib-devel
+    - gdbm-devel
+    - readline-devel
+    - ncurses-devel
+    - libffi-devel
+    - libyaml-devel
+    - libxml2-devel
+    - libxslt-devel
+    - libicu-devel
+    - libcurl-devel
+    - curl
+
+- name: Install MariaDB
+  yum: pkg={{ item }} state=present enablerepo=mariadb
+  with_items:
+    - MariaDB-server
+    - MariaDB-client
+    - MariaDB-common
+    - MariaDB-compat
+    - MariaDB-devel
+    - MySQL-python
+
+- name: chkconfig on MariaDB
+  service: name=mysql state=started enabled=yes
+
+# Nginx
+- name: install Nginx
+  yum: pkg={{ item }} state=installed enablerepo=nginx
+  with_items:
+    - nginx
+
+- name: Delete nginx/conf.d/default.conf
+  file: path=/etc/nginx/conf.d/default.conf state=absent
+
+- name: ensure nginx is running automatically at boot time
+  service: name=nginx state=started enabled=yes
+
+- name: insert iptables rule
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ www_port }}"
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp --dport {{ www_port }} -j ACCEPT"
+  notify: restart iptables
