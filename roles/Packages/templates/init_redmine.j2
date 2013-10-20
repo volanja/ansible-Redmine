@@ -1,5 +1,6 @@
 #! /bin/sh
-set -e
+
+# chkconfig: - 85 15
 
 ### BEGIN INIT INFO
 # Provides:          redmine
@@ -10,6 +11,9 @@ set -e
 # Short-Description: Redmine Project management software
 # Description:       Redmine Project management software
 ### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
 
 ### Environment variables
 RAILS_ENV="production"
@@ -22,7 +26,6 @@ PID=$APP_ROOT/tmp/pids/unicorn.pid
 CMD="/home/redmine/.rbenv/shims/bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb --path /redmine -E $RAILS_ENV"
 INIT_CONF=$APP_ROOT/config/init.conf
 action="$1"
-set -u
 
 test -f "$INIT_CONF" && . $INIT_CONF
 
