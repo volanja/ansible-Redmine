@@ -1,0 +1,7 @@
+- name: Install Redmine
+  hosts: server
+  user: redmine
+  roles:
+    - ruby
+    - mariadb
+    - redmine

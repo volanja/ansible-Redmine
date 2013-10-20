@@ -1,2 +1,4 @@
 ---
 www_port: 80
+
+redmine_home: /home/redmine
