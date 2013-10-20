@@ -1,0 +1,44 @@
+# database
+- name: add MySQL database {{ mysql_redmine_database }}
+  mysql_db: db={{ mysql_redmine_database }} state=present encoding=utf8 collation=utf8_unicode_ci
+
+- name: add MySQL server user for localhost
+  mysql_user: user=gitlab host=localhost password={{ mysql_redmine_password }} state=present
+              priv="{{ mysql_redmine_database }}.*:SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER"
+# gitlab
+- name: Delete redmine-{{ redmine_ver }}
+  file: path=~/redmine state=absent
+
+- name: Download redmine
+  get_url: url=http://rubyforge.org/frs/download.php/77138/redmine-{{ redmine_ver }}.tar.gz dest=~/redmine-{{ redmine_ver }}.tar.gz
+
+- name: Extract tar.gz
+  shell: tar zxvf redmine-{{ redmine_ver }}.tar.gz chdir=~
+
+- name: Move redmine-{{ redmine_ver }} to redmine
+  shell: mv redmine-{{ redmine_ver }} redmine
+
+- name: Template config/database.yml
+  template: src=database.yml.mysql.j2 dest=~/redmine/config/database.yml mode=0600
+
+# unicorn
+- name: Template Gemfile.local
+  template: src=Gemfile.local dest=~/redmine/Gemfile.local mode=0644
+
+- name: Template config/unicorn.rb
+  template: src=unicorn.rb.j2 dest=~/redmine/config/unicorn.rb mode=0600
+
+- name: mkdir redmine/tmp/pids
+  file: path=~/redmine/tmp/pids state=directory owner=redmine group=git mode=0775
+
+# bundle install
+- name: Install Bundle
+  shell: bundle install --without development test chdir=~/redmine
+
+#Initialize Secret Token
+- name: Initialize Secret Token
+  shell: bundle exec rake generate_secret_token chdir=~/redmine
+
+# Initialize Database
+- name: Initialize Database
+  shell: "bundle exec rake db:migrate RAILS_ENV=production chdir=~/redmine"
