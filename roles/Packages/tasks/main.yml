@@ -40,6 +40,14 @@
     - libcurl-devel
     - curl
 
+## Redmine
+- name: Install ImageMagick
+  yum: pkg={{ item }} state=present
+  with_items:
+    - ImageMagick
+    - ImageMagick-devel
+    - ipa-pgothic-fonts
+
 - name: Install MariaDB
   yum: pkg={{ item }} state=present enablerepo=mariadb
   with_items:

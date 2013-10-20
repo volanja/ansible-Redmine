@@ -1,0 +1,17 @@
+---
+- name: Add Group {{ group_name }}
+  group: name={{ group_name }} state=present
+
+- name: Add User {{ user_name }}
+  user: name={{ user_name }} group={{ group_name }}
+
+- name: Copy /etc/sudoers.d/sudo_{{ user_name }}
+  template: src=sudo_{{ user_name }}.j2 dest=/etc/sudoers.d/{{ user_name }} mode=0440
+
+- name: Create ~/.ssh
+  file: path={{ user_home }}/.ssh state=directory
+
+- name: Copy ssh_pub_key
+  shell: "cp /root/.ssh/authorized_keys {{ user_home }}/.ssh/authorized_keys 
+         && chown {{ user_name }}:{{ group_name }} {{ user_home }}/.ssh/authorized_keys 
+         && chmod 600 {{ user_home }}/.ssh/authorized_keys"
