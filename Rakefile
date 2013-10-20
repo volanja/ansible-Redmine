@@ -6,6 +6,10 @@ hosts = [
     :user  => 'root',
     :roles => %w( Packages ),
   },
+  {
+    :user  => 'redmine',
+    :roles => %w( redmine ),
+  },
 ]
 
 hosts = hosts.map do |host|
