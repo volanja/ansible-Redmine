@@ -2,5 +2,5 @@
 mysql_redmine_password: password
 mysql_redmine_database: redmine
 
-redmine_ver: 2.3.3
+redmine_ver: 2.4.1
 redmine_home: /home/redmine
