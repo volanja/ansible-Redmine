@@ -2,5 +2,10 @@
   hosts: server
   user: root
   roles:
+    #for root
     - Packages
     - user
+    #for redmine
+    - ruby
+    - mariadb
+    - redmine
