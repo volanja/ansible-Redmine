@@ -23,7 +23,7 @@ TIMEOUT=${TIMEOUT-60}
 APP_ROOT={{ redmine_home }}/redmine
 APP_USER="redmine"
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="/home/redmine/.rbenv/shims/bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb --path /redmine -E $RAILS_ENV"
+CMD="/home/redmine/.rbenv/shims/bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb -E $RAILS_ENV"
 INIT_CONF=$APP_ROOT/config/init.conf
 action="$1"
 

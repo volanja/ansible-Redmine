@@ -29,10 +29,6 @@
   template: src=database.yml.mysql.j2 dest=~/redmine/config/database.yml mode=0600
   remote_user: redmine
 
-- name: Template config.ru
-  template: src=config.ru dest=~/redmine/config.ru mode=0644
-  remote_user: redmine
-
 # unicorn
 - name: Template Gemfile.local
   template: src=Gemfile.local dest=~/redmine/Gemfile.local mode=0644
