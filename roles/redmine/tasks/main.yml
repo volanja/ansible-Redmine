@@ -8,7 +8,7 @@
               priv="{{ mysql_redmine_database }}.*:SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER"
   remote_user: redmine
 
-# gitlab
+# redmine
 - name: Delete redmine-{{ redmine_ver }}
   file: path=~/redmine state=absent
   remote_user: redmine
@@ -60,3 +60,14 @@
 - name: Initialize Database
   shell: "bundle exec rake db:migrate RAILS_ENV=production chdir=~/redmine"
   remote_user: redmine
+
+# Add Redmine as service
+- name: Template nginx/conf.d/redmine.conf
+  template: src=nginx_redmine.conf.j2 dest=/etc/nginx/conf.d/redmine.conf mode=0644
+
+# Add Config for Redmine
+- name: Template /etc/init.d/redmine
+  template: src=init_redmine.j2 dest=/etc/init.d/redmine mode=0755 owner=root group=root
+
+- name: ensure redmine is running automatically at boot time
+  service: name=redmine state=started enabled=yes
