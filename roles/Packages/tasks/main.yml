@@ -76,6 +76,7 @@
 
 - name: ensure nginx is running automatically at boot time
   service: name=nginx state=started enabled=yes
+  notify: restart nginx
 
 - name: insert iptables rule
   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ www_port }}"

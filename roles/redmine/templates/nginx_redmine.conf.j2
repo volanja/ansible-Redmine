@@ -17,7 +17,6 @@ server {
   # enable one of the following if you're on Linux or FreeBSD
   # listen 80 default deferred; # for Linux
   # listen 80 default accept_filter=httpready; # for FreeBSD
-  listen *:80 default_server;
   server_name {{ ansible_hostname }};
   server_tokens off;
   # If you have IPv6, you'll likely want to have two separate listeners.
@@ -45,7 +44,7 @@ server {
   # over time.  Older versions of nginx (e.g. 0.6.x) requires
   # "if (!-f $request_filename)" which was less efficient:
   # http://bogomips.org/unicorn.git/tree/examples/nginx.conf?id=v3.3.1#n127
-  location /redmine {
+  location / {
     try_files $uri/index.html $uri.html $uri @redmine;
   }
 
