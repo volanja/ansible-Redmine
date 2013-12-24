@@ -33,10 +33,10 @@ describe file('/etc/nginx/conf.d/redmine.conf') do
 end
 
 ## permisson
-describe command("-u redmine ls -ltad /home/redmine/redmine/log |awk '{print $1}'") do
+describe command("ls -ltad /home/redmine/redmine/log |awk '{print $1}'") do
   it { should return_stdout 'drwxr-xr-x' }
 end
 
-describe command("-u redmine ls -ltad /home/redmine/redmine/tmp |awk '{print $1}'") do
+describe command("ls -ltad /home/redmine/redmine/tmp |awk '{print $1}'") do
   it { should return_stdout 'drwxr-xr-x' }
 end
