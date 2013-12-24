@@ -44,8 +44,8 @@ clone後、hostsファイル内の対象サーバのIPアドレスを変更し�
 
 3. ansible playbook 実行  
 
-対象サーバのドメイン名を次のファイルに定義(デフォルトはcadence)してください。
-Windows/Linuxではhostsファイルの書き換えにより、アクセスするようにします。
+対象サーバのドメイン名を次のファイルに定義(デフォルトはcadence)してください。  
+Windows/Linuxではhostsファイルの書き換えにより、アクセスするようにします。  
 
 ```
 +----------------------------------------------------------------------------+
@@ -64,26 +64,27 @@ $ ansible-playbook setup.yml -i hosts
 
 4. テストの準備  
 Serverspecで行います。  
-spec/properties.ymlのIPアドレス、秘密鍵を修正してください。
+spec/properties.ymlのIPアドレス、秘密鍵を修正してください。  
 
 ```spec/spec.yml
 root:
   roles:
     - Packages
-    - gitlab
+    - redmine
   ip: 192.168.0.108
   private_key: ~/.ssh/id_rsa
 ```
 
 5. テストの実行  
 次のコマンドで実行します。  
+
 ```
 $ rake serverspec       # Run serverspec to all hosts
 ```
 
-6. Gitlabへのアクセス  
-あらかじめhostsファイルを次のように変更しておきます。
-Windows... C:/Windows/System32/drivers/etc/hosts
+6. Redmineへのアクセス  
+あらかじめhostsファイルを次のように変更しておきます。  
+Windows... C:/Windows/System32/drivers/etc/hosts  
 Linux,Mac... /etc/hosts
 
 ```
