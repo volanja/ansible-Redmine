@@ -90,6 +90,10 @@ ID...admin
 パスワード...admin
 ```
 
+Plugins
+-----
+[Plugins](docs/plugins.md)
+
 謝辞
 -----
 作成にあたり、以下のサイトを参考にさせて頂きました。

@@ -1,0 +1,3 @@
+---
+- include: Redmine-Redcarpet-Formatter.yml
+

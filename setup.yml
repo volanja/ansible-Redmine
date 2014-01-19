@@ -10,3 +10,4 @@
     - ruby
     - mariadb
     - redmine
+    - redmine-plugins
