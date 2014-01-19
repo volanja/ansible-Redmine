@@ -1,0 +1,26 @@
+---
+- name: gem install oauth-plugin
+  gem: name=oauth-plugin state=present
+  remote_user: redmine
+
+- name: Download redmine_oauth_provider
+  git: repo=https://github.com/suer/redmine_oauth_provider.git
+       dest=~/redmine/plugins/redmine_oauth_provider
+       update=no
+  remote_user: redmine
+
+- name: Template redmine_oauth_provider/redmine_oauth_provider.rb
+  template: src=redmine_oauth_provider/redmine_oauth_provider.rb dest=~/redmine/config/initializers/redmine_oauth_provider.rb mode=0644
+  remote_user: redmine
+  tags: test
+
+- name: Bundle install
+  command: "chdir=~/redmine bundle install"
+  remote_user: redmine
+
+- name: Run rake
+  command: "chdir=~/redmine rake redmine:plugins:migrate RAILS_ENV=production"
+  remote_user: redmine
+
+- name: Restart redmine
+  service: name=redmine state=restarted
