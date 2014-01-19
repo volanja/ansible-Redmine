@@ -1,4 +1,4 @@
-- name: Install Redmine
+- name: Install_Redmine
   hosts: server
   user: root
   roles:
