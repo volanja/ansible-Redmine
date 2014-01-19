@@ -1,0 +1,21 @@
+---
+- name: gem install redcarpet
+  gem: name=redcarpet version=2.0.0b5 state=present
+  remote_user: redmine
+
+- name: Download Redmine Redcarpet Formatter
+  git: repo=https://github.com/alminium/redmine_redcarpet_formatter.git
+       dest=~/redmine/plugins/redmine_redcarpet_formatter
+       version=v2.0.1  update=no
+  remote_user: redmine
+
+- name: Run rake
+  command: "chdir=~/redmine rake redmine:plugins:migrate RAILS_ENV=production"
+  remote_user: redmine
+
+- name: default of text_formatting to Markdown
+  lineinfile: "dest=~/redmine/config/settings.yml state=present regexp='^  default: textile' line='  default: markdown'"
+  remote_user: redmine
+
+- name: Restart redmine
+  service: name=redmine state=restarted
