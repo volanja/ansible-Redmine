@@ -58,10 +58,8 @@ Windows/Linuxからはhostsファイルの書き換えにより、アクセス�
 $ ansible-playbook setup.yml -i hosts  
 ```
 
-4. テストの確認
-
-テストコマンドを確認します。
-
+4. テストの確認  
+テストコマンドを確認します。  
 ```
 $ rake -T
 rake serverspec:Install_Redmine  # Run serverspec for Install_Redmine
@@ -72,11 +70,10 @@ rake serverspec:Install_Redmine  # Run serverspec for Install_Redmine
 ```
 $ rake serverspec:Install_Redmine
 Run serverspec for Install_Redmine to xxx.xxx.xxx.xxx
-/Users/Adr/.rvm/rubies/ruby-2.0.0-p353/bin/ruby -S rspec roles/Packages/spec/mariadb_spec.rb roles/Packages/spec/nginx_spec.rb roles/Packages/spec/repo_spec.rb roles/redmine/spec/redmine_spec.rb roles/redmine/spec/ruby_spec.rb roles/redmine/spec/user_spec.rb
-............................
-
-Finished in 1.27 seconds
-28 examples, 0 failures
+/Users/Adr/.rvm/rubies/ruby-2.0.0-p353/bin/ruby -S rspec roles/Packages/spec/mariadb_spec.rb roles/Packages/spec/nginx_spec.rb roles/Packages/spec/repo_spec.rb roles/redmine/spec/redmine_spec.rb roles/redmine/spec/ruby_spec.rb roles/redmine/spec/user_spec.rb  
+............................  
+Finished in 1.27 seconds  
+28 examples, 0 failures  
 ```
 
 6. Redmineへのアクセス  
