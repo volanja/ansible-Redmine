@@ -1,0 +1,8 @@
+---
+- name: Download redmine_absolute_dates 
+  git: repo=https://github.com/suer/redmine_absolute_dates.git
+       dest=~/redmine/plugins/redmine_absolute_dates
+  remote_user: redmine
+
+- name: Restart redmine
+  service: name=redmine state=restarted
