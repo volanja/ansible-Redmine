@@ -4,10 +4,10 @@ python:
 install:
   - pip install ansible
 before_script:
-  - cd ~
+  - pushd ~/build/volanja
   - git clone https://github.com/willthames/ansible-lint.git
   - export PYTHONPATH=$PYTHONPATH:`pwd`/ansible-lint/lib
   - export PATH=$PATH:`pwd`/ansible-lint/bin
 script:
-  - cd ~/volanja/ansible-Redmine
+  - popd
   - ansible-lint site.yml
