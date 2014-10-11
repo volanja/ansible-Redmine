@@ -1,0 +1,8 @@
+language: python
+python:
+  - "2.7"
+install: "pip install https://github.com/willthames/ansible-lint/archive/master.zip"
+script:
+    - git clone --quiet https://github.com/volanja/ansible-Redmine.git
+    - pushd ansible-Redmine
+    - ansible-lint site.yml
