@@ -1,6 +1,6 @@
 ansible-Redmine
 =====================
-ansible-lint [![Build Status](https://travis-ci.org/volanja/ansible-Redmine.svg?branch=master)](https://travis-ci.org/volanja/ansible-Redmine)
+**ansible-lint Result ->** [![Build Status](https://travis-ci.org/volanja/ansible-Redmine.svg?branch=master)](https://travis-ci.org/volanja/ansible-Redmine)
 
 
 ansibleを使って、バグ管理ソフトウェアのマシンを構築します。  
