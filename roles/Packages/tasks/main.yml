@@ -25,7 +25,7 @@
     - git-all
 
 - name: Install Ruby Dependency
-  yum: pkg={{ item }} state=present enablerepo=epel 
+  yum: name={{ item }} state=present enablerepo=epel
   with_items:
     - openssl-devel
     - zlib-devel
