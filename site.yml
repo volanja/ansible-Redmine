@@ -11,3 +11,6 @@
     - mariadb
     - redmine
     - redmine-plugins
+  vars:
+    db: postgresql
+    #db: mariadb
