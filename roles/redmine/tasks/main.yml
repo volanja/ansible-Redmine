@@ -67,6 +67,10 @@
   shell: "bundle exec rake db:migrate RAILS_ENV=production chdir=~/redmine"
   remote_user: redmine
 
+- name: Load Default Data for Japanese
+  shell: "bundle exec rake redmine:load_default_data RAILS_ENV=production REDMINE_LANG=ja chdir=~/redmine"
+  remote_user: redmine
+
 # Add Redmine as service
 - name: Template nginx/conf.d/redmine.conf
   template: src=nginx_redmine.conf.j2 dest=/etc/nginx/conf.d/redmine.conf mode=0644
