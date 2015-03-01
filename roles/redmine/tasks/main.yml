@@ -1,12 +1,7 @@
-# database
-- name: add MySQL database {{ mysql_redmine_database }}
-  mysql_db: db={{ mysql_redmine_database }} state=present encoding=utf8 collation=utf8_unicode_ci
-  remote_user: redmine
-
-- name: add MySQL server user for localhost
-  mysql_user: user=gitlab host=localhost password={{ mysql_redmine_password }} state=present
-              priv="{{ mysql_redmine_database }}.*:SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER"
-  remote_user: redmine
+# Database
+# mariadb
+- include: mariadb.yml
+  when: db == 'mariadb'
 
 # redmine
 - name: Delete redmine-{{ redmine_ver }}
@@ -22,12 +17,18 @@
   remote_user: redmine
 
 - name: Move redmine-{{ redmine_ver }} to redmine
-  shell: mv redmine-{{ redmine_ver }} redmine
+  shell: mv redmine-{{ redmine_ver }} redmine chdir=~
   remote_user: redmine
 
-- name: Template config/database.yml
+- name: Template config/database.yml for MariaDB
   template: src=database.yml.mysql.j2 dest=~/redmine/config/database.yml mode=0600
   remote_user: redmine
+  when: db == 'mariadb'
+
+- name: Template config/database.yml for PosgreSQL
+  template: src=database.yml.postgresql.j2 dest=~/redmine/config/database.yml mode=0600
+  remote_user: redmine
+  when: db == 'postgresql'
 
 # unicorn
 - name: Template Gemfile.local
@@ -43,6 +44,15 @@
   remote_user: redmine
 
 # bundle install
+- name: set jobs 4
+  shell: bundle config --global --jobs 4 chdir=~/redmine
+  remote_user: redmine
+
+- name: Install pg
+  shell: bundle config build.pg --with-pg-config=/usr/pgsql-9.4/bin/pg_config chdir=~/redmine
+  remote_user: redmine
+  when: db == 'postgresql'
+
 - name: Install Bundle
   shell: bundle install --without development test chdir=~/redmine
   remote_user: redmine
@@ -67,3 +77,6 @@
 
 - name: ensure redmine is running automatically at boot time
   service: name=redmine state=started enabled=yes
+
+- name: restart nginx
+  service: name=nginx state=restarted

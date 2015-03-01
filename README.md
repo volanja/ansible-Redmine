@@ -20,21 +20,32 @@ CentOS 6.4 64bit   (virtualbox + vagrantで構築)
 
 実行環境
 -----
-	$ ansible --version  
-	ansible 1.4.1 (1.4.1 7bf799af65) last updated 2013/11/30 14:23:28 (GMT +900)
 
-	$ ruby -v  
-	ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-darwin11.4.2]
+```
+$ ansible --version
+ansible 1.8.4 (v1.8.4 ebc8d48d34) last updated 2015/02/25 00:00:16 (GMT +900)
+  lib/ansible/modules/core: (detached HEAD f22df78345) last updated 2015/02/25 00:01:41 (GMT +900)
+  lib/ansible/modules/extras: (detached HEAD 23190986fd) last updated 2015/02/25 00:01:53 (GMT +900)
+  v2/ansible/modules/core:  not found - use git submodule update --init v2/ansible/modules/core
+  v2/ansible/modules/extras:  not found - use git submodule update --init v2/ansible/modules/extras
+  configured module search path = None
 
-	$ gem list |grep serverspec  
-	serverspec (0.13.2)
+$ ruby -v
+ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-darwin11.4.2]
+
+$ gem list |grep serverspec
+serverspec (2.7.1)
+```
 
 インストールするもの
 ------
-+ ruby 2.0.0p353 (/home/redmine配下にrbenvでインストール)
++ ruby 2.2.0 (/home/redmine配下にrbenvでインストール)
++ PostgresSQL 9.4.1
++ Redmine 3.0.0
++ Nginx 1.6.2
+
+GitlabがPostgreSQL推奨なので、PostgreSQLで動くようにしています。
 + MariaDB 5.5.33a
-+ Redmine 2.4.1
-+ Nginx
 
 実行手順
 ----
