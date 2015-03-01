@@ -12,7 +12,7 @@ ansibleを使って、バグ管理ソフトウェアのマシンを構築しま�
 
 アクセスはサブドメイン(redmine.cadence)で行います。
 
-![ソフトウェア構成図](https://raw.github.com/volanja/ansible-Redmine/master/img/ansible-Redmine.png)
+![ソフトウェア構成図](https://raw.github.com/volanja/ansible-Redmine/master/img/ansible-Redmine_pg.png)
 
 対象環境
 -----
