@@ -1,0 +1,9 @@
+# database
+- name: add MySQL database {{ mysql_redmine_database }}
+  mysql_db: db={{ mysql_redmine_database }} state=present encoding=utf8 collation=utf8_unicode_ci
+  remote_user: redmine
+
+- name: add MySQL server user for localhost
+  mysql_user: user=gitlab host=localhost password={{ mysql_redmine_password }} state=present
+              priv="{{ mysql_redmine_database }}.*:SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER"
+  remote_user: redmine
