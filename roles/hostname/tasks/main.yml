@@ -1,5 +1,5 @@
-- name: set hostname {{ server_name }}
-  hostname: name={{ server_name }}
+- name: set hostname {{ hostname }}
+  hostname: name={{ hostname }}
 
 - name: reboot after change hostname
   shell: sleep 2s && /sbin/reboot &
