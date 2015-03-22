@@ -15,3 +15,5 @@
   vars:
     db: postgresql
     #db: mariadb
+    hostname: cadence
+    redmine_home: /home/redmine
