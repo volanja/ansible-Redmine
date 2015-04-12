@@ -1,8 +1,3 @@
-# Database
-# mariadb
-- include: mariadb.yml
-  when: db == 'mariadb'
-
 # redmine
 - name: Delete redmine-{{ redmine_ver }}
   file: path=~/redmine state=absent
