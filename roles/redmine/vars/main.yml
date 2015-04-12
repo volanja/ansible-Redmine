@@ -1,5 +1,2 @@
 ---
-mysql_redmine_password: password
-mysql_redmine_database: redmine
-
 redmine_ver: 3.0.0
