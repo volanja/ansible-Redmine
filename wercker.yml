@@ -1,0 +1,29 @@
+box: wercker-labs/docker
+no-response-timeout: 10
+build:
+  steps:
+    - script:
+        name: docker version
+        code: |
+          docker -v
+          mkdir `pwd`/ssh
+          ssh-keygen -f `pwd`/ssh/id_rsa_docker -N ''
+          cat `pwd`/ssh/id_rsa_docker.pub >> `pwd`/ssh/authorized_keys
+          ls -R
+    - script:
+        name: docker pull
+        code: |
+          docker pull volanja/docker-ruby2.2.0
+          docker pull volanja/docker-ansible
+          docker pull jpetazzo/nsenter
+    - script:
+        name: docker run
+        code: |
+          docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
+          docker run -d -P --hostname=cadence -v `pwd`/ssh:/var/tmp:rw --name target volanja/docker-ruby2.2.0
+          echo 'service sshd restart; mkdir /root/.ssh/ ; cat /var/tmp/authorized_keys >> /root/.ssh/authorized_keys' | /usr/local/bin/docker-enter target
+          echo "echo 'root:root' | chpasswd" | /usr/local/bin/docker-enter target
+          docker run -d -P --name serv --link target:ansible -v `pwd`:/root:rw -v `pwd`/ssh:/var/tmp:rw -t volanja/docker-ansible
+          echo 'env; mkdir ~/.ssh; cp /var/tmp/id_rsa_docker ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa ' | /usr/local/bin/docker-enter serv
+          echo 'cd /root; ansible-playbook site_wercker.yml -i hosts_wercker' | /usr/local/bin/docker-enter serv
+          echo 'cd /root; rake serverspec:Ansible-Sample-TDD' | /usr/local/bin/docker-enter serv
