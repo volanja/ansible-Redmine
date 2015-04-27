@@ -20,7 +20,7 @@ build:
         name: docker run
         code: |
           docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
-          docker run -d -P --hostname=cadence -v `pwd`/ssh:/var/tmp:rw --name target volanja/docker-ruby2.2.0
+          docker run -d -P --cap-add=NET_ADMIN --hostname=cadence -v `pwd`/ssh:/var/tmp:rw --name target volanja/docker-ruby2.2.0
           echo 'service sshd restart; mkdir /root/.ssh/ ; cat /var/tmp/authorized_keys >> /root/.ssh/authorized_keys' | /usr/local/bin/docker-enter target
           echo "echo 'root:root' | chpasswd" | /usr/local/bin/docker-enter target
           docker run -d -P --name serv --link target:ansible -v `pwd`:/root:rw -v `pwd`/ssh:/var/tmp:rw -t volanja/docker-ansible
