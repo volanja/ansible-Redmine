@@ -49,7 +49,7 @@
   when: db == 'postgresql'
 
 - name: Install Bundle
-  shell: bundle install --without development test chdir=~/redmine
+  shell: bundle install --path vendor/bundle --without development test chdir=~/redmine
   remote_user: redmine
 
 #Initialize Secret Token
