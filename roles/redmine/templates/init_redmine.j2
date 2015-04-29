@@ -22,11 +22,18 @@ RAILS_ENV="production"
 APP_ROOT={{ redmine_home }}/redmine
 APP_USER="redmine"
 PID=${APP_ROOT}/tmp/pids/unicorn.pid
-CMD="/home/redmine/.rbenv/shims/bundle exec unicorn_rails -D -c ${APP_ROOT}/config/unicorn.rb -E ${RAILS_ENV}"
+CMD="bundle exec unicorn_rails -D -c ${APP_ROOT}/config/unicorn.rb -E ${RAILS_ENV}"
 INIT_CONF=${APP_ROOT}/config/init.conf
 action="$1"
 RETVAL=0
 prog="redmine"
+# set PATH
+if [ -e '/home/redmine/.rbenv' ]; then # use rbenv
+  PATH=$PATH:/home/redmine/.rbenv/shims
+elif [ -e '/usr/local/bin' ]; then # use root system
+  PATH=$PATH:/usr/local/bin
+fi
+
 
 test -f "${INIT_CONF}" && . ${INIT_CONF}
 
