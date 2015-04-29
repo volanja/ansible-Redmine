@@ -1,4 +1,4 @@
 ---
-- include: Redmine-Redcarpet-Formatter.yml
+#- include: Redmine-Redcarpet-Formatter.yml
 - include: redmine_oauth_provider.yml
 - include: redmine_absolute_dates.yml
