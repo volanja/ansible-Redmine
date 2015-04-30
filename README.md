@@ -1,14 +1,12 @@
 ansible-Redmine
 =====================
+[![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/m "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736)
 **ansible-lint Result ->** [![Build Status](https://travis-ci.org/volanja/ansible-Redmine.svg?branch=master)](https://travis-ci.org/volanja/ansible-Redmine)
-
 
 ansibleを使って、バグ管理ソフトウェアのマシンを構築します。  
 以下のソフトウェアをインストールします。  
 
 [Redmine](http://redmine.jp/)…Ruby製のバグ管理ソフトウェア
-
-[ansible](http://www.ansibleworks.com/)...サーバ構成管理ソフトウェア  
 
 アクセスはサブドメイン(redmine.cadence)で行います。
 
@@ -16,10 +14,14 @@ ansibleを使って、バグ管理ソフトウェアのマシンを構築しま�
 
 対象環境
 -----
-CentOS 6.4 64bit   (virtualbox + vagrantで構築)
+
++ CentOS 6.x 64bit
++ Docker Container [volanja/docker-ruby2.2.0](https://registry.hub.docker.com/u/volanja/docker-ruby2.2.0/)
 
 実行環境
 -----
+Docker Containerがあります。[volanja/docker-ansible](https://registry.hub.docker.com/u/volanja/docker-ansible/)
+自前で構築する場合は、次のバージョンを参考にしてください。
 
 ```
 $ ansible --version
@@ -39,11 +41,12 @@ serverspec (2.7.1)
 
 インストールするもの
 ------
-+ ruby 2.2.0 (/home/redmine配下にrbenvでインストール)
++ ruby 2.2.0 (/home/redmine配下にrbenvでインストール。 Dokcer Containerはrootにインストール済み。)
++ Redmine 3.0.2
 + PostgresSQL 9.4.1
-+ Redmine 3.0.0
 + Nginx 1.6.2
 
+Gitlabと組み合わせることを想定しています。
 GitlabがPostgreSQL推奨なので、PostgreSQLで動くようにしています。
 + MariaDB 5.5.33a
 
