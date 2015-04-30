@@ -1,2 +1,6 @@
 ---
 mysql_root_password: password
+
+mysql_redmine_password: password
+mysql_redmine_database: redmine
+

@@ -1,5 +1,5 @@
 describe command('cat /home/redmine/.rbenv/version') do
-  it { should return_stdout '2.0.0-p353' }
+  its(:stdout) { should match /2.2.0/ }
 end
 
 

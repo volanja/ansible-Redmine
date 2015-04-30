@@ -1,8 +1,2 @@
 ---
-mysql_redmine_password: password
-mysql_redmine_database: redmine
-
-redmine_ver: 2.4.1
-redmine_home: /home/redmine
-
-server_name: cadence
+redmine_ver: 3.0.2
