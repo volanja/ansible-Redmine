@@ -17,7 +17,7 @@ server {
   # enable one of the following if you're on Linux or FreeBSD
   # listen 80 default deferred; # for Linux
   # listen 80 default accept_filter=httpready; # for FreeBSD
-  server_name redmine.{{ server_name }};
+  server_name redmine.{{ hostname }};
   server_tokens off;
   # If you have IPv6, you'll likely want to have two separate listeners.
   # One on IPv4 only (the default), and another on IPv6 only instead

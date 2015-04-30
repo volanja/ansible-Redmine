@@ -34,9 +34,9 @@ end
 
 ## permisson
 describe command("ls -ltad /home/redmine/redmine/log |awk '{print $1}'") do
-  it { should return_stdout 'drwxr-xr-x' }
+  its(:stdout) { should match /drwxr-xr-x/ }
 end
 
 describe command("ls -ltad /home/redmine/redmine/tmp |awk '{print $1}'") do
-  it { should return_stdout 'drwxr-xr-x' }
+  its(:stdout) { should match /drwxr-xr-x/ }
 end

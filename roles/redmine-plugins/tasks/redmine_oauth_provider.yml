@@ -4,7 +4,7 @@
   remote_user: redmine
 
 - name: Download redmine_oauth_provider
-  git: repo=https://github.com/suer/redmine_oauth_provider.git
+  git: repo=https://github.com/volanja/redmine_oauth_provider.git
        dest=~/redmine/plugins/redmine_oauth_provider
        update=no
   remote_user: redmine

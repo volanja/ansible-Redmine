@@ -3,11 +3,11 @@
   user: root
   roles:
     #for root
-    - hostname
+    #- hostname
     - Packages
     - user
     #for redmine
-    - ruby
+    #- ruby
     - postgresql
     #- mariadb
     - redmine

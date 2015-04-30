@@ -1,40 +1,54 @@
 ansible-Redmine
 =====================
+[![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/m "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736)
 **ansible-lint Result ->** [![Build Status](https://travis-ci.org/volanja/ansible-Redmine.svg?branch=master)](https://travis-ci.org/volanja/ansible-Redmine)
-
 
 ansibleを使って、バグ管理ソフトウェアのマシンを構築します。  
 以下のソフトウェアをインストールします。  
 
 [Redmine](http://redmine.jp/)…Ruby製のバグ管理ソフトウェア
 
-[ansible](http://www.ansibleworks.com/)...サーバ構成管理ソフトウェア  
-
 アクセスはサブドメイン(redmine.cadence)で行います。
 
-![ソフトウェア構成図](https://raw.github.com/volanja/ansible-Redmine/master/img/ansible-Redmine.png)
+![ソフトウェア構成図](https://raw.github.com/volanja/ansible-Redmine/master/img/ansible-Redmine_pg.png)
 
 対象環境
 -----
-CentOS 6.4 64bit   (virtualbox + vagrantで構築)
+
++ CentOS 6.x 64bit
++ Docker Container [volanja/docker-ruby2.2.0](https://registry.hub.docker.com/u/volanja/docker-ruby2.2.0/)
 
 実行環境
 -----
-	$ ansible --version  
-	ansible 1.4.1 (1.4.1 7bf799af65) last updated 2013/11/30 14:23:28 (GMT +900)
+Docker Containerがあります。[volanja/docker-ansible](https://registry.hub.docker.com/u/volanja/docker-ansible/)  
+自前で構築する場合は、次のバージョンを参考にしてください。
 
-	$ ruby -v  
-	ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-darwin11.4.2]
+```
+$ ansible --version
+ansible 1.8.4 (v1.8.4 ebc8d48d34) last updated 2015/02/25 00:00:16 (GMT +900)
+  lib/ansible/modules/core: (detached HEAD f22df78345) last updated 2015/02/25 00:01:41 (GMT +900)
+  lib/ansible/modules/extras: (detached HEAD 23190986fd) last updated 2015/02/25 00:01:53 (GMT +900)
+  v2/ansible/modules/core:  not found - use git submodule update --init v2/ansible/modules/core
+  v2/ansible/modules/extras:  not found - use git submodule update --init v2/ansible/modules/extras
+  configured module search path = None
 
-	$ gem list |grep serverspec  
-	serverspec (0.13.2)
+$ ruby -v
+ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-darwin11.4.2]
+
+$ gem list |grep serverspec
+serverspec (2.7.1)
+```
 
 インストールするもの
 ------
-+ ruby 2.0.0p353 (/home/redmine配下にrbenvでインストール)
++ ruby 2.2.0 (/home/redmine配下にrbenvでインストール。 Dokcer Containerはrootにインストール済み。)
++ Redmine 3.0.2
++ PostgresSQL 9.4.1
++ Nginx 1.6.2
+
+Gitlabと組み合わせることを想定しています。
+GitlabがPostgreSQL推奨なので、PostgreSQLで動くようにしています。
 + MariaDB 5.5.33a
-+ Redmine 2.4.1
-+ Nginx
 
 実行手順
 ----
@@ -51,8 +65,7 @@ Windows/Linuxからはhostsファイルの書き換えにより、アクセス�
 +----------------------------------------------------------------------------+
 |             File             |          Key          |        Value        |
 +----------------------------------------------------------------------------+
-| roles/redmine/vars/main.yml  | server_name           | cadence             |
-| roles/hostname/vars/main.yml | server_name           | cadence             |
+| site.yml                     | hostname              | cadence             |
 +----------------------------------------------------------------------------+
 ```
 次のコマンドで実行します。  

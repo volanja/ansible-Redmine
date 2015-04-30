@@ -17,3 +17,7 @@ describe file('/etc/my.cnf') do
   it { should be_file }
   it { should contain "!includedir /etc/my.cnf.d" }
 end
+
+describe yumrepo('mariadb') do
+   it { should exist }
+end
