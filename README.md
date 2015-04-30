@@ -20,7 +20,7 @@ ansibleを使って、バグ管理ソフトウェアのマシンを構築しま�
 
 実行環境
 -----
-Docker Containerがあります。[volanja/docker-ansible](https://registry.hub.docker.com/u/volanja/docker-ansible/)
+Docker Containerがあります。[volanja/docker-ansible](https://registry.hub.docker.com/u/volanja/docker-ansible/)  
 自前で構築する場合は、次のバージョンを参考にしてください。
 
 ```
