@@ -51,23 +51,22 @@ def valid_ip?(str)
 end
 
 if valid_ip?(host)
-  target = "#{host}/32"
+  target = "#{host}"
 else
   begin
-    ip = Resolv.getaddress(host)
-    target = "#{ip}/32"
+    target = "#{Resolv.getaddress(host)}"
   rescue Resolv::ResolvError
     fail "can't resolv name. please check DNS settings"
   end
 end
-
-property = Hash.new
-property['infra_url'] = host
-
-set_property property
 
 Infrataster::Server.define(
   :redmine,           # name
   target, # ip address or hostname
   vagrant: false     # for vagrant VM
 )
+
+## set property for access in roles/redmine/spec/infrataster_spec.rb
+property = Hash.new
+property['infra_url'] = host
+set_property property
