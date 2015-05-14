@@ -1,0 +1,17 @@
+---
+- name: Download redmine_knowledgebase
+  git: repo=https://github.com/alexbevi/redmine_knowledgebase.git
+       dest=~/redmine/plugins/redmine_knowledgebase
+       update=no
+  remote_user: redmine
+
+- name: Bundle install
+  command: "chdir=~/redmine bundle install"
+  remote_user: redmine
+
+- name: Run rake
+  command: "chdir=~/redmine rake redmine:plugins:migrate RAILS_ENV=production"
+  remote_user: redmine
+
+- name: Restart redmine
+  service: name=redmine state=restarted
