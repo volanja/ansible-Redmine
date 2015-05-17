@@ -3,11 +3,11 @@
   user: root
   roles:
     #for root
-    - hostname
+    #- hostname
     - Packages
     - user
     #for redmine
-    - ruby
+    #- ruby
     - postgresql
     #- mariadb
     - redmine
@@ -17,4 +17,4 @@
     #db: mariadb
     hostname: cadence
     redmine_home: /home/redmine
-    redmine_version: 3.0.2
+    redmine_version: 2.6.5
