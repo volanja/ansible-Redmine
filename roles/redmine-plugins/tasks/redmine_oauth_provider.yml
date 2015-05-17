@@ -3,10 +3,20 @@
   gem: name=oauth-plugin state=present
   remote_user: redmine
 
-- name: Download redmine_oauth_provider
-  git: repo=https://github.com/volanja/redmine_oauth_provider.git
+- name: Download redmine_oauth_provider (for Redmine 3.x.x)
+  git: repo=https://github.com/suer/redmine_oauth_provider.git
        dest=~/redmine/plugins/redmine_oauth_provider
        update=no
+       version=HEAD
+  when: redmine_version | version_compare('3.0.0', '>=')
+  remote_user: redmine
+
+- name: Download redmine_oauth_provider (for Redmine 2.x.x)
+  git: repo=https://github.com/suer/redmine_oauth_provider.git
+       dest=~/redmine/plugins/redmine_oauth_provider
+       update=no
+       version=0.0.3
+  when: redmine_version | version_compare('3.0.0', '<')
   remote_user: redmine
 
 - name: Template redmine_oauth_provider/redmine_oauth_provider.rb
