@@ -26,5 +26,5 @@ test:
     - echo "sed -i 's/.*session.*required.*pam_loginuid.so.*/session optional pam_loginuid.so/g' /etc/pam.d/sshd" | /usr/local/bin/docker-enter target
     - docker run -d -P --name serv --link target:dest -v `pwd`:/root:rw -v `pwd`/ssh:/var/tmp:rw -t volanja/docker-ansible
     - echo 'env; mkdir ~/.ssh; cp /var/tmp/id_rsa_docker ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa ' | /usr/local/bin/docker-enter serv
-    - echo 'cd /root; ansible-playbook site_circleci.yml -i hosts_wercker' | /usr/local/bin/docker-enter serv
-    - echo 'cd /root; PLAYBOOK=site_circleci.yml INVENTORY=hosts_wercker rake serverspec:Install_Redmine' | /usr/local/bin/docker-enter serv
+    - echo 'cd /root; ansible-playbook site_circleci.yml -i hosts_docker' | /usr/local/bin/docker-enter serv
+    - echo 'cd /root; PLAYBOOK=site_circleci.yml INVENTORY=hosts_docker rake serverspec:Install_Redmine' | /usr/local/bin/docker-enter serv
