@@ -1,7 +1,9 @@
 ansible-Redmine
 =====================
-[![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/m "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736)
-**ansible-lint Result ->** [![Build Status](https://travis-ci.org/volanja/ansible-Redmine.svg?branch=master)](https://travis-ci.org/volanja/ansible-Redmine)
+| Redmine Version | Install Result |
+|:----------------|:---------------|
+| 2.6.5           | [![Circle CI](https://circleci.com/gh/volanja/ansible-Redmine.svg?style=svg)](https://circleci.com/gh/volanja/ansible-Redmine)|
+| 3.0.2           | [![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/s "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736) |
 
 ansibleを使って、バグ管理ソフトウェアのマシンを構築します。  
 以下のソフトウェアをインストールします。  
@@ -104,6 +106,26 @@ http://redmine.cadence/
 ID...admin
 パスワード...admin
 ```
+
+# インストールテスト
+playbookの動作確認を2つのCIサービス上で実行しています。
+
+## Redmine 2.x on circleci
+[![Circle CI](https://circleci.com/gh/volanja/ansible-Redmine.svg?style=svg)](https://circleci.com/gh/volanja/ansible-Redmine)
+
+```sample
+ansible-playbook site_circleci.yml -i hosts_wercker
+PLAYBOOK=site_circleci.yml INVENTORY=hosts_docker rake serverspec:Install_Redmine
+```
+
+## Redmine 3.x on wercker
+[![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/s "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736)
+
+```sample
+ansible-playbook site_wercker.yml -i hosts_wercker
+PLAYBOOK=site_wercker.yml INVENTORY=hosts_docker rake serverspec:Install_Redmine
+```
+
 
 Plugins
 -----

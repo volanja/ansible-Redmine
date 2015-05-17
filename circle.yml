@@ -1,0 +1,30 @@
+machine:
+  services:
+    - docker
+dependencies:
+  pre:
+    - if [[ -e docker-ruby2.1.6.tar ]]; then cat docker-ruby2.1.6.tar | docker import - volanja/docker-ruby2.1.6 ; docker load --input docker-ruby2.1.6.tar ; else docker pull volanja/docker-ruby2.1.6 ; docker save -o docker-ruby2.1.6.tar volanja/docker-ruby2.1.6 ; fi
+    - if [[ -e docker-ansible.tar ]]; then cat docker-ansible.tar | docker import - volanja/docker-ansible ; docker load --input docker-ansible.tar ; else docker pull volanja/docker-ansible ; docker save -o docker-ansible.tar volanja/docker-ansible ; fi
+    - if [[ -e nsenter.tar ]]; then cat nsenter.tar | docker import - jpetazzo/nsenter ; docker load --input nsenter.tar ; else docker pull jpetazzo/nsenter ; docker save -o nsenter.tar jpetazzo/nsenter ; fi
+
+  cache_directories:
+    - "docker-ruby2.1.6.tar"
+    - "docker-ansible.tar"
+    - "nsenter.tar"
+
+test:
+  pre:
+    - docker -v
+    - mkdir `pwd`/ssh
+    - ssh-keygen -f `pwd`/ssh/id_rsa_docker -N ''
+    - cat `pwd`/ssh/id_rsa_docker.pub >> `pwd`/ssh/authorized_keys
+  post:
+    - docker run -v /usr/local/bin:/target jpetazzo/nsenter
+    - docker run -d -P --cap-add=NET_ADMIN --hostname=cadence -v `pwd`/ssh:/var/tmp:rw --name target volanja/docker-ruby2.1.6
+    - echo 'service sshd restart; mkdir /root/.ssh/ ; cat /var/tmp/authorized_keys >> /root/.ssh/authorized_keys' | /usr/local/bin/docker-enter target
+    # for Ubuntu
+    - echo "sed -i 's/.*session.*required.*pam_loginuid.so.*/session optional pam_loginuid.so/g' /etc/pam.d/sshd" | /usr/local/bin/docker-enter target
+    - docker run -d -P --name serv --link target:dest -v `pwd`:/root:rw -v `pwd`/ssh:/var/tmp:rw -t volanja/docker-ansible
+    - echo 'env; mkdir ~/.ssh; cp /var/tmp/id_rsa_docker ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa ' | /usr/local/bin/docker-enter serv
+    - echo 'cd /root; ansible-playbook site_circleci.yml -i hosts_docker' | /usr/local/bin/docker-enter serv
+    - echo 'cd /root; PLAYBOOK=site_circleci.yml INVENTORY=hosts_docker rake serverspec:Install_Redmine' | /usr/local/bin/docker-enter serv
