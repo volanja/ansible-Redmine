@@ -1,18 +1,18 @@
 # redmine
-- name: Delete redmine-{{ redmine_ver }}
+- name: Delete redmine-{{ redmine_version }}
   file: path=~/redmine state=absent
   remote_user: redmine
 
 - name: Download redmine
-  get_url: url=http://www.redmine.org/releases/redmine-{{ redmine_ver }}.tar.gz dest=~/redmine-{{ redmine_ver }}.tar.gz
+  get_url: url=http://www.redmine.org/releases/redmine-{{ redmine_version }}.tar.gz dest=~/redmine-{{ redmine_version }}.tar.gz
   remote_user: redmine
 
 - name: Extract tar.gz
-  shell: tar zxvf redmine-{{ redmine_ver }}.tar.gz chdir=~
+  shell: tar zxvf redmine-{{ redmine_version }}.tar.gz chdir=~
   remote_user: redmine
 
-- name: Move redmine-{{ redmine_ver }} to redmine
-  shell: mv redmine-{{ redmine_ver }} redmine chdir=~
+- name: Move redmine-{{ redmine_version }} to redmine
+  shell: mv redmine-{{ redmine_version }} redmine chdir=~
   remote_user: redmine
 
 - name: Template config/database.yml for MariaDB
