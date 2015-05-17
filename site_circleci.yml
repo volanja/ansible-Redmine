@@ -1,0 +1,20 @@
+- name: Install_Redmine
+  hosts: server
+  user: root
+  roles:
+    #for root
+    #- hostname
+    - Packages
+    - user
+    #for redmine
+    #- ruby
+    - postgresql
+    #- mariadb
+    - redmine
+    - redmine-plugins
+  vars:
+    db: postgresql
+    #db: mariadb
+    hostname: cadence
+    redmine_home: /home/redmine
+    redmine_version: 2.6.5
