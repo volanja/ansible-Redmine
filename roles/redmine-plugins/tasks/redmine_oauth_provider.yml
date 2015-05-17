@@ -19,7 +19,7 @@
   remote_user: redmine
 
 - name: Run rake
-  command: "chdir=~/redmine rake redmine:plugins:migrate RAILS_ENV=production"
+  command: "chdir=~/redmine bundle exec rake redmine:plugins:migrate RAILS_ENV=production"
   remote_user: redmine
 
 - name: Restart redmine
