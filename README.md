@@ -114,7 +114,7 @@ playbookの動作確認を2つのCIサービス上で実行しています。
 [![Circle CI](https://circleci.com/gh/volanja/ansible-Redmine.svg?style=svg)](https://circleci.com/gh/volanja/ansible-Redmine)
 
 ```sample
-ansible-playbook site_circleci.yml -i hosts_wercker
+ansible-playbook site_circleci.yml -i hosts_docker
 PLAYBOOK=site_circleci.yml INVENTORY=hosts_docker rake serverspec:Install_Redmine
 ```
 
@@ -122,7 +122,7 @@ PLAYBOOK=site_circleci.yml INVENTORY=hosts_docker rake serverspec:Install_Redmin
 [![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/s "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736)
 
 ```sample
-ansible-playbook site_wercker.yml -i hosts_wercker
+ansible-playbook site_wercker.yml -i hosts_docker
 PLAYBOOK=site_wercker.yml INVENTORY=hosts_docker rake serverspec:Install_Redmine
 ```
 
