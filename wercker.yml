@@ -28,4 +28,4 @@ build:
           docker run -d -P --name serv --link target:dest -v `pwd`:/root:rw -v `pwd`/ssh:/var/tmp:rw -t volanja/docker-ansible
           echo 'env; mkdir ~/.ssh; cp /var/tmp/id_rsa_docker ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa ' | /usr/local/bin/docker-enter serv
           echo 'cd /root; ansible-playbook site_wercker.yml -i hosts_wercker' | /usr/local/bin/docker-enter serv
-          echo 'cd /root; rake serverspec:Install_Redmine' | /usr/local/bin/docker-enter serv
+          echo 'cd /root; PLAYBOOK=site_wercker.yml INVENTORY=hosts_wercker rake serverspec:Install_Redmine' | /usr/local/bin/docker-enter serv
