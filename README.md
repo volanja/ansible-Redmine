@@ -50,7 +50,8 @@ serverspec (2.7.1)
 
 Gitlabと組み合わせることを想定しています。
 GitlabがPostgreSQL推奨なので、PostgreSQLで動くようにしています。
-+ MariaDB 5.5.33a
+ただし、site_*.ymlでmariadbを選択するとMariaDBを使用します。
++ MariaDB 10.1
 
 実行手順
 ----
