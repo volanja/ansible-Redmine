@@ -2,8 +2,8 @@ ansible-Redmine
 =====================
 | Redmine Version | Install Result |
 |:----------------|:---------------|
-| 2.6.5           | [![Circle CI](https://circleci.com/gh/volanja/ansible-Redmine.svg?style=svg)](https://circleci.com/gh/volanja/ansible-Redmine)|
-| 3.0.2           | [![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/s "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736) |
+| 2.6.7           | [![Circle CI](https://circleci.com/gh/volanja/ansible-Redmine.svg?style=svg)](https://circleci.com/gh/volanja/ansible-Redmine)|
+| 3.1.1           | [![wercker status](https://app.wercker.com/status/015abf220744e21156426f841f299736/s "wercker status")](https://app.wercker.com/project/bykey/015abf220744e21156426f841f299736) |
 
 ansibleを使って、バグ管理ソフトウェアのマシンを構築します。  
 以下のソフトウェアをインストールします。  
