@@ -33,6 +33,6 @@ describe file('/var/lib/pgsql/9.4/data/postgresql.conf') do
   it { should be_file }
 end
 
-describe yumrepo('pgdg') do
+describe yumrepo('pgdg94') do
    it { should exist }
 end
