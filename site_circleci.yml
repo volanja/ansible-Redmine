@@ -17,4 +17,4 @@
     #db: mariadb
     hostname: cadence
     redmine_home: /home/redmine
-    redmine_version: 2.6.9
+    redmine_version: 2.6.10
