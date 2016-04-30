@@ -3,6 +3,13 @@ no-response-timeout: 20
 build:
   steps:
     - script:
+        name: show information
+        code: |
+          cat /etc/redhat-release
+          ruby -v
+          ansible --version
+          gem list |grep spec
+    - script:
         name: start ansible-playbook
         code: |
           pwd
