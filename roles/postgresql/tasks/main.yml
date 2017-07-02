@@ -5,6 +5,10 @@
                    role_attr_flags=NOINHERIT
   sudo: yes
   sudo_user: postgres
+
+- name: check locale
+  shell: |
+    locale -a
 # Create a new database with name "acme" and specific encoding and locale
 # settings. If a template different from "template0" is specified, encoding
 # and locale settings must match those of the template.
