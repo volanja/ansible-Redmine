@@ -3,7 +3,7 @@
 - name: Install pgdg
   yum: name={{ item }} state=present
   with_items:
-    - http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+    - https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 
 - name: Install PostgreSQL
   yum: name={{ item }} state=present enablerepo=pgdg94
