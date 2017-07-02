@@ -6,17 +6,17 @@
     - https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 
 - name: Install PostgreSQL
-  yum: name={{ item }} state=present enablerepo=pgdg94
+  yum: name={{ item }} state=present enablerepo=pgdg96
   with_items:
-    - postgresql94-server
-    - postgresql94-devel
+    - postgresql96-server
+    - postgresql96-devel
     - python-psycopg2
     - libpqxx
     - libpqxx-devel
 
 - name: Initialize Database
-  shell: service postgresql-9.4 initdb
-         creates=/var/lib/pgsql/9.4/data/postgresql.conf
+  shell: service postgresql-9.6 initdb
+         creates=/var/lib/pgsql/9.6/data/postgresql.conf
 
 - name: chkconfig on PostgreSQL and service start
-  service: name=postgresql-9.4 state=started enabled=yes
+  service: name=postgresql-9.6 state=started enabled=yes
